@@ -20,7 +20,6 @@
   background-image: linear-gradient(rgb(0,0,0,0.7), rgb(0,0,0,0.7)), url("assets/img/weather-bg-min.jpg");
   background-position: center;
   background-size: cover;
-  /*background-color: #fff8f7;*/
 }
 
 @media (max-width: 500px) {
