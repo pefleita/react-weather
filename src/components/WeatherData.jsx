@@ -1,58 +1,47 @@
-import styles from "./WeatherData.module.css";
 import { WiHumidity, WiSunrise, WiSunset } from "react-icons/wi";
 import { IconWeather } from "./IconWeather";
 
 export function WeatherData({ data }) {
-  console.log(data);
   const iconCode = data.cod !== "404" ? `${data.weather[0].icon}` : "null";
-  /*const imgSrc =
-    data.cod !== "404"
-      ? `${process.env.REACT_APP_ICON_URL}/${data.weather[0].icon}@2x.png`
-      : "null.png";*/
 
   return (
-    <div className={styles.weatherDataContainer}>
+    <div className="min-h-full flex flex-col justify-center">
       {data.cod !== "404" ? (
         <>
-          <div className={styles.weatherDataBlockOne}>
-            <div>
-              <h1>El clima en <br/> {data.name}</h1>
-              {/* <img src={`${imgSrc}`} alt={data.weather[0].description} /> */}
+          <div className="flex justify-around text-gray-200 flex-wrap">
+            <div className="p-4 text-center">
+              <h1 className="text-3xl mb-4">El clima en <br/> {data.name}</h1>
               <IconWeather icon={iconCode}/>
-              <p className={styles.description}>
+              <p className="text-xl font-light capitalize mt-2">
                 {data.weather[0].description}
               </p>
             </div>
-            <div>
-              <p className={styles.temperature}>
-                {Math.round(data.main.temp)}{" "}
-                <span className={styles.deg}>&deg;C</span>
+            <div className="p-4 text-center flex flex-col justify-center">
+              <p className="text-[4.5rem] relative leading-none">
+                {Math.round(data.main.temp)}
+                <span className="text-2xl absolute top-4">&deg;C</span>
               </p>
-              <p className={styles.tempMaxMin}>
-                <span className={styles.max}>
-                  {Math.round(data.main.temp_max)} &deg;C
-                </span>{" "}
-                /{" "}
-                <span className={styles.min}>
-                  {Math.round(data.main.temp_min)} &deg;C
-                </span>
+              <p className="text-lg font-light">
+                <span className="text-primary">{Math.round(data.main.temp_max)}&deg;C</span>
+                {" / "}
+                <span className="text-secondary">{Math.round(data.main.temp_min)}&deg;C</span>
               </p>
             </div>
           </div>
-          <div className={styles.weatherDataBlockTwo}>
-            <p>
+          <div className="flex justify-center mt-16 flex-wrap gap-4 text-gray-200">
+            <p className="flex items-center gap-2 font-light text-xl">
               <WiHumidity size={40} /> {data.main.humidity} %
             </p>
-            <p>
-              <WiSunrise size={40} />{" "}
+            <p className="flex items-center gap-2 font-light text-xl">
+              <WiSunrise size={40} />
               {new Date(data.sys.sunrise * 1000).toLocaleTimeString("es-ES", {
                 hour: "numeric",
                 minute: "numeric",
                 hour12: true,
               })}
             </p>
-            <p>
-              <WiSunset size={40} />{" "}
+            <p className="flex items-center gap-2 font-light text-xl">
+              <WiSunset size={40} />
               {new Date(data.sys.sunset * 1000).toLocaleTimeString("es-ES", {
                 hour: "numeric",
                 minute: "numeric",
@@ -62,7 +51,7 @@ export function WeatherData({ data }) {
           </div>
         </>
       ) : (
-        <div className={styles.cityNoFound}>
+        <div className="flex justify-center font-light text-gray-200 text-sm">
           <h2>No hay resultados para su búsqueda</h2>
         </div>
       )}

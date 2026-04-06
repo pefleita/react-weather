@@ -1,71 +1,43 @@
 import { useState } from "react";
-import { WeatherData } from "./WeatherData";
-import { NoWeatherData } from "./NoWeatherData";
-import styles from "./SearchWeather.module.css";
 import { FaSearch } from "react-icons/fa";
 
-export function SearchWeather() {
-  const [weather, setWeather] = useState([]);
+export function SearchWeather({ onSearch }) {
   const [form, setForm] = useState({
     city: "",
   });
 
-  const API_URL = process.env.REACT_APP_API_URL;
-  const API_KEY = process.env.REACT_APP_API_KEY;
-  //console.log(`${API_URL}?q=${form.city}&units=metric&lang=es&appid=${API_KEY}`);
-  async function weatherData(e) {
-    e.preventDefault();
-
-    if (form.city === "") {
-      alert("Escriba el nombre de una ciudad para conocer su clima");
-    } else {
-      const data = await fetch(
-        `${API_URL}?q=${form.city}&units=metric&lang=es&appid=${API_KEY}`
-      )
-        .then((res) => res.json())
-        .then((data) => data);
-
-      setWeather({ data: data });
-    }
-  }
-
   const handleChange = (e) => {
-    let name = e.target.name;
-    let value = e.target.value;
-
-    console.log(name);
-    console.log(value);
+    const name = e.target.name;
+    const value = e.target.value;
 
     if (name === "city") {
       setForm({ ...form, city: value });
     }
   };
 
+  const handleSubmit = (e) => {
+    e.preventDefault();
+    onSearch(form.city);
+  };
+
   return (
-    <>
-      <div className={styles.searchContainer}>
-        <h2 className={styles.titleSearch}>Buscar clima</h2>
-        <form className={styles.searchForm}>
-          <input
-            className={styles.searchInput}
-            type="text"
-            placeholder="Ciudad"
-            name="city"
-            onChange={(e) => handleChange(e)}
-          />
-          <button
-            className={styles.searchButton}
-            onClick={(e) => weatherData(e)}
-          >
-            <FaSearch size={20} />
-          </button>
-        </form>
-      </div>
-      <div>
-        {weather.data !== undefined ? (
-          <WeatherData data={weather.data} />
-        ) : <NoWeatherData />}
-      </div>
-    </>
+    <div className="flex flex-col items-center justify-center h-full px-6 md:px-0">
+      <h2 className="text-3xl sm:text-4xl md:text-5xl mb-4 mt-0">Buscar clima</h2>
+      <form className="relative w-full max-w-md" onSubmit={handleSubmit}>
+        <input
+          className="text-2xl h-[50px] w-full rounded-[10px] border border-neutral-300 px-4 py-2 text-neutral-600 font-light placeholder-neutral-600 focus:outline-none focus:border-neutral-400 focus:shadow-[0_0_5px_#e8e8e8]"
+          type="text"
+          placeholder="Ciudad"
+          name="city"
+          onChange={handleChange}
+        />
+        <button
+          type="submit"
+          className="absolute right-0 top-0 h-full cursor-pointer rounded-r-[10px] border border-transparent bg-transparent text-neutral-400 px-3 hover:text-neutral-600 transition-colors"
+        >
+          <FaSearch size={20} />
+        </button>
+      </form>
+    </div>
   );
 }

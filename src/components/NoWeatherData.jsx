@@ -1,4 +1,3 @@
-import styles from "./NoWeatherData.module.css"; 
 import {
   TiWeatherCloudy,
   TiWeatherPartlySunny,
@@ -7,7 +6,7 @@ import {
 
 export function NoWeatherData() {
   return (
-    <div className={styles.noWeatherContainer}>
+    <div className="flex items-center justify-evenly min-h-full text-gray-200">
       <TiWeatherCloudy size={80} />
       <TiWeatherPartlySunny size={80} />
       <TiWeatherShower size={80} />
