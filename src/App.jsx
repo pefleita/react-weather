@@ -26,17 +26,14 @@ export function App() {
   }
 
   return (
-    <div className="flex flex-col md:flex-row min-h-screen md:min-h-full overflow-hidden">
+    <div className="flex flex-col md:flex-row h-screen md:overflow-hidden">
       <div className="flex-1 px-6 py-8 md:p-8 bg-primary text-white md:flex-none md:w-1/2 flex flex-col">
         <SearchWeather onSearch={fetchWeather} />
       </div>
       <div 
-        className="flex-1 px-6 py-8 md:p-8 min-h-[50vh] md:min-h-full flex items-center justify-center"
+        className="flex-1 px-6 py-8 md:p-8 md:h-full flex items-center justify-center bg-fixed bg-cover bg-center"
         style={{ 
-          backgroundImage: `linear-gradient(rgba(0, 0, 0, 0.7), rgba(0, 0, 0, 0.7)), url(${weatherBg})`,
-          backgroundSize: 'cover',
-          backgroundPosition: 'center',
-          backgroundRepeat: 'no-repeat'
+          backgroundImage: `linear-gradient(rgba(0, 0, 0, 0.7), rgba(0, 0, 0, 0.7)), url(${weatherBg})`
         }}
       >
         {weather?.data !== undefined ? (
